@@ -17,6 +17,8 @@ RUN           yum -y -q makecache && \
 # Install packages
 RUN           yum -y -q install \
                 sudo \
+                httpd \
+                mod_passenger \
                 puppet-dashboard && \
               yum -y -q clean all
 
@@ -24,8 +26,12 @@ RUN           yum -y -q install \
 ADD           scripts/init_database.sh /my_init/10_init_database.sh
 ADD           scripts/init_settings.sh /my_init/20_init_settings.sh
 
+ADD           dashboard-vhost.conf /etc/httpd/conf.d/dashboard-vhost.conf
+
 # Require tty
 RUN           sed -i 's/^Defaults\s*requiretty/#Default requiretty/g' /etc/sudoers
+
+
 
 EXPOSE        3000
 # ADD start script

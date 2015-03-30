@@ -12,5 +12,6 @@ do
 done
 
 CWD=/usr/share/puppet-dashboard
+cd $CWD
 sudo -H -u puppet-dashboard rake RAILS_ENV=production db:migrate
-sudo -H -u puppet-dashboard ./script/server -e production
+/usr/sbin/httpd -D FOREGROUND
